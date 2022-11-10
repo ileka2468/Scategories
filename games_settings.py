@@ -1,3 +1,5 @@
+# comment check
+
 def create_categories(csv_list, categories):
     for csv in csv_list:
         with open(csv, "r") as f:
