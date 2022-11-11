@@ -1,5 +1,6 @@
 # comment check
 from pathlib import Path
+import random
 
 categories = {}
 start_letters = {}
@@ -7,10 +8,9 @@ start_letters = {}
 csv_folder = Path("CSV_folder")
 category_csvs = [csv_folder / "fruits.csv", csv_folder / "presidents.csv", csv_folder / "countries.csv"]
 
-def game_settings(rounds: int = 3, ):
-    rounds = 3
-    players = 2
-    return (rounds, players)
+def game_settings():
+    rounds = 6
+    return (rounds)
 
 def create_categories():
     for csv in category_csvs:
@@ -36,8 +36,18 @@ def generate_start_letters():
     return start_letters
 
 
+def writeFile(categories, letters):
+    with open("settings.txt", "w") as f:
+        for round in range(game_settings()):
+            category = random.choice(list(categories.keys()))
+            letter = random.choice(list(letters[category]))
+            f.write(f"{round}, {category}, {letter}\n")
+
+
 def main():
-    pass
+    categoriess = create_categories()
+    letters = generate_start_letters()
+    writeFile(categoriess, letters)
 
     # create_categories(category_csvs, categories)
     # generate_start_letters(categories, start_letters)

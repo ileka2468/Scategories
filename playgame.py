@@ -4,6 +4,7 @@ from art import *
 import random
 import msvcrt
 import sys
+from pytimedinput import timedInput
 
 categories = create_categories()
 start_letters = generate_start_letters()
@@ -29,22 +30,22 @@ def game_start():
     welcome_message = text2art("Welcome to Scattergories!")
     print(welcome_message)
     print(f"---- Instructions ----\nYou will be given a category and a letter. Your job is to correctly enter as many items"
-          f" from that category STARTING with that letter in your alotted time. Time left is indicated by the progress bar.")
+          f" from that category STARTING with that letter in your alotted time. You will have 30 seconds for each question.")
     start_game = input("\nEnter 'y' to start: ")
     game()
 
 
 def game():
-    for num in range(settings[0]):
+    for num in range(settings):
         category = random.choice(list(categories.keys()))
         letter = random.choice(list(start_letters[category]))
         print(f"Category: {category} and Letter: {letter}")
-        try:
-            answer = input_with_timeout("Enter your answer: ", 10)
-        except TimeoutExpired:
-            print('\n ------Sorry, times up------')
+
+        userText, timedOut = timedInput("Enter answer: ", 10)
+        if(timedOut):
+            print("------Sorry, times up------")
         else:
-            print('Got %r' % answer)
+            print(f"User-input: '{userText}'")
 
 
 
