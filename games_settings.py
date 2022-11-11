@@ -8,8 +8,8 @@ csv_folder = Path("CSV_folder")
 category_csvs = [csv_folder / "fruits.csv", csv_folder / "presidents.csv", csv_folder / "countries.csv"]
 
 def game_settings(rounds: int = 3, ):
-    rounds = input("How many rounds do you want to play?")
-    players = input("How many players are there?")
+    rounds = 3
+    players = 2
     return (rounds, players)
 
 def create_categories():
