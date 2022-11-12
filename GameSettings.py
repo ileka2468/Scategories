@@ -10,7 +10,8 @@ category_csvs = [csv_folder / "fruits.csv", csv_folder / "presidents.csv", csv_f
 
 def game_settings():
     rounds = 6
-    return (rounds)
+    players = 2
+    return (rounds, players)
 
 def create_categories():
     for csv in category_csvs:
@@ -36,9 +37,10 @@ def generate_start_letters():
     return start_letters
 
 
-def writeFile(categories, letters):
+def write_settingsFile(categories, letters):
     with open("settings.txt", "w") as f:
-        for round in range(game_settings()):
+        f.write(f"Expected Players: {game_settings()[1]}\n")
+        for round in range(game_settings()[0]):
             category = random.choice(list(categories.keys()))
             letter = random.choice(list(letters[category]))
             f.write(f"{round}, {category}, {letter}\n")
@@ -47,7 +49,7 @@ def writeFile(categories, letters):
 def main():
     categoriess = create_categories()
     letters = generate_start_letters()
-    writeFile(categoriess, letters)
+    write_settingsFile(categoriess, letters)
 
     # create_categories(category_csvs, categories)
     # generate_start_letters(categories, start_letters)
