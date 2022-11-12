@@ -1,6 +1,6 @@
 from pathlib import Path
 from GameSettings import *
-
+from pytimedinput import timedInput
 global category_dict
 category_dict = create_categories()
 
@@ -46,7 +46,6 @@ def genrateplayerdict(expected_players):
 def scoreGame(player_dict, player_num):
     # score players in sequential order
     scores_list = [0 for x in range(player_num)]
-    print(scores_list)
     for player in range(1, 3):
         score = 0
         for round in range(game_settings()[0]):
@@ -54,12 +53,27 @@ def scoreGame(player_dict, player_num):
             answer_letter1 = player_dict[player][round][3][0]
             category = player_dict[player][round][1]
             letter = player_dict[player][round][2]
-            print(answer, answer_letter1, category, letter)
             if answer_letter1 == letter:
                 if answer in category_dict[f"{category}"]:
-                    print("True")
                     scores_list[player - 1] += 1
     print(scores_list)
+
+def reviewAnsers(player_dict):
+    question = timedInput("Would you like to review player answers? 'y/n': ", timeout=-1, allowCharacters="y, n")
+    for player in range(1, 3):
+        score = 0
+        print(f"---------- Player: {player} ----------")
+        for round in range(game_settings()[0]):
+            roundpoints = 0
+            answer = player_dict[player][round][3]
+            answer_letter1 = player_dict[player][round][3][0]
+            category = player_dict[player][round][1]
+            letter = player_dict[player][round][2]
+            if answer_letter1 == letter:
+                if answer in category_dict[f"{category}"]:
+                    roundpoints = 1
+            print(f"Round: {round + 1}\nCategory: {category}\nAnswer: {answer}\nPoints Earned: {roundpoints}\n")
+
 
 
 
@@ -71,5 +85,7 @@ def main():
     check_files(files[0], files[1])
     player_dictionary = genrateplayerdict(files[1])
     scoreGame(player_dictionary, files[1])
+    reviewAnsers(player_dictionary)
+
 
 main()
