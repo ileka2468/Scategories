@@ -26,7 +26,7 @@ def check_files(filenames, expected_files):
         if path.is_file():
             pass
         elif not path.is_file():
-            raise Exception(f"I expected {filename}, but did not see it in the directory!")
+            raise Exception(f"I expected {filename} for player {filename[0]}, but did not see it in the directory!")
 
 
 def get_files():

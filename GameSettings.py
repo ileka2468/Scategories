@@ -4,7 +4,7 @@ import random
 
 '''
 This is a final project for CSC 241 at DePaul Univeersity, Professor: Tony Lowe, Group Members: William Ileka, Bakhodir Astanov, placeholder, placeholder
-Project: Scategories
+Project: Scattegories
 License: MIT 
 
 Copyright 2022 William Ileka Et al.
@@ -22,11 +22,11 @@ categories = {}
 start_letters = {}
 
 csv_folder = Path("CSV_folder")
-category_csvs = [csv_folder / "fruits.csv", csv_folder / "presidents.csv", csv_folder / "countries.csv"]
+category_csvs = [csv_folder / "fruits.csv", csv_folder / "presidents.csv", csv_folder / "countries.csv", csv_folder / "generic-food.csv"]
 
 def game_settings():
-    rounds = 2
-    players = 6
+    rounds = 10
+    players = 2
     return (rounds, players)
 
 def create_categories():
@@ -40,7 +40,6 @@ def create_categories():
             for line in f:
                 item = line.split(",")[0].strip()
                 categories[csv].append(item.replace('"', ""))
-
     return categories
 
 

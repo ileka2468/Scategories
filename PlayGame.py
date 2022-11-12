@@ -25,6 +25,12 @@ categories = create_categories()
 start_letters = generate_start_letters()
 settings = game_settings()
 
+def allowed_usernames(player_num):
+    string = ""
+    for num in range(1, player_num + 1):
+        string += f"{num},"
+    new = string.rstrip(string[-1])
+    return new
 
 def game_start():
     welcome_message = text2art("Welcome to Scattergories!")
@@ -32,7 +38,7 @@ def game_start():
     print(f"---- Instructions ----\nYou will be given a category and a letter. Your job is to correctly enter as many items"
           f" from that category STARTING with that letter in your alotted time. You will have 30 seconds for each question.")
     print(f"\nThis game has {settings[1]} player(s). Choose your player number below")
-    username = input("Enter player number: ")
+    username = timedInput("Enter player number: ", timeout=-1, allowCharacters=f"{allowed_usernames(settings[1])}")
     timedInput("\nEnter 'y' to start: ", timeout=-1, allowCharacters="y")
     game(username)
 
@@ -45,6 +51,7 @@ def game(username):
     for round in range(settings[0]):
         category = round_info[round][1]
         letter = round_info[round][2].strip()
+        print(f"----------- Round {round + 1} -----------")
         print(f"Category: {category} and Letter: {letter}")
         start_time = datetime.datetime.now().replace(microsecond=0)
         userText, timedOut = timedInput("Enter answer: ", 30)
@@ -53,7 +60,6 @@ def game(username):
             saveAnswer(username, round, "OOT", category, letter)
 
         else:
-            print(f"Previous answer: '{userText}'")
             end_time = datetime.datetime.now().replace(microsecond=0)
             duration = str(end_time - start_time)
 
