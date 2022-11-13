@@ -5,7 +5,7 @@ import random
 '''
 This is a final project for CSC 241 at DePaul Univeersity, Professor: Tony Lowe, Group Members: William Ileka, Bakhodir Astanov, placeholder, placeholder
 Project: Scattegories
-License: MIT 
+License: MIT lol
 
 Copyright 2022 William Ileka Et al.
 
