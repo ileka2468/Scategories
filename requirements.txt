@@ -1,0 +1,6 @@
+----------required packages---------
+
+1. pytimedinput - pip install pytimedinput
+2. art - pip install art
+3. datetime module
+4. pathlib module
