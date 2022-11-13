@@ -38,7 +38,7 @@ def game_start():
     print(f"---- Instructions ----\nYou will be given a category and a letter. Your job is to correctly enter as many items"
           f" from that category STARTING with that letter in your alotted time. You will have 30 seconds for each question.")
     print(f"\nThis game has {settings[1]} player(s). Choose your player number below")
-    username = timedInput("Enter player number: ", timeout=-1, allowCharacters=f"{allowed_usernames(settings[1])}")
+    username, timeout = timedInput("Enter player number: ", timeout=-1, allowCharacters=f"{allowed_usernames(settings[1])}")
     timedInput("\nEnter 'y' to start: ", timeout=-1, allowCharacters="y")
     game(username)
 

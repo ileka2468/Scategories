@@ -1,6 +1,7 @@
 # comment check
 from pathlib import Path
 import random
+from pytimedinput import timedInput
 
 '''
 This is a final project for CSC 241 at DePaul Univeersity, Professor: Tony Lowe, Group Members: William Ileka, Bakhodir Astanov, placeholder, placeholder
@@ -25,9 +26,20 @@ csv_folder = Path("CSV_folder")
 category_csvs = [csv_folder / "fruits.csv", csv_folder / "presidents.csv", csv_folder / "countries.csv", csv_folder / "generic-food.csv"]
 
 def game_settings():
-    rounds = 10
-    players = 2
-    return (rounds, players)
+    with open("roundinfo.txt", "r") as f:
+        line = f.readline()
+        comma = line.find(",")
+        rounds = line[:comma]
+        players = line[comma + 1:]
+    return (int(rounds), int(players))
+
+def getdata():
+    roundz, timeout1 = timedInput("How many rounds per game?: ", timeout=-1, allowCharacters="1,2,3,4,5,6,7,8,9,0")
+    playerz, timeout2 = timedInput("How many people will be playing: ", timeout=-1, allowCharacters="1,2,3,4,5,6,7,8,9,0")
+    with open("roundinfo.txt","w") as f:
+        f.write(f"{roundz},{playerz}")
+
+
 
 def create_categories():
     for csv in category_csvs:
@@ -62,6 +74,7 @@ def write_settingsFile(categories, letters):
 
 
 def main():
+    getdata()
     categoriess = create_categories()
     letters = generate_start_letters()
     write_settingsFile(categoriess, letters)
