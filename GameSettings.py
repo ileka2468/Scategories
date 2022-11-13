@@ -4,9 +4,9 @@ import random
 from pytimedinput import timedInput
 
 '''
-This is a final project for CSC 241 at DePaul Univeersity, Professor: Tony Lowe, Group Members: William Ileka, Bakhodir Astanov, placeholder, placeholder
+This is a final project for CSC 241 at DePaul Univeersity, Professor: Tony Lowe, Group Members: William Ileka, , Fouzan Hussain ,Syed Farhan, Bakhodir Astanov
 Project: Scattegories
-License: MIT lol
+License: MIT
 
 Copyright 2022 William Ileka Et al.
 
