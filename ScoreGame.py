@@ -2,6 +2,7 @@ from pathlib import Path
 from GameSettings import *
 from pytimedinput import timedInput
 global category_dict
+from collections import defaultdict
 category_dict = create_categories()
 
 '''
@@ -50,6 +51,7 @@ def generateanswersdict(player):
             answers[current_round] = temp_list
         return answers
 
+
 def genrateplayerdict(expected_players):
     player_dict = {}
     for player in range(1, expected_players + 1):
@@ -72,27 +74,63 @@ def scoreGame(player_dict, player_num):
                     scores_list[player - 1] += 1
     return scores_list
 
+
 def reviewAnsers(player_dict, player_num, scores):
     question = timedInput("Would you like to review player answers? 'y/n': ", timeout=-1, allowCharacters="y, n")
+    compare_dict = {}
+    with open("finalscore.txt", "w") as f:
+        pass
     for player in range(1, player_num + 1):
         score = 0
-        print(f"---------- Player: {player} ----------")
+        # print(f"---------- Player: {player} ----------")
         for round in range(game_settings()[0]):
             roundpoints = 0
             answer = player_dict[player][round][3]
             answer_letter1 = player_dict[player][round][3][0]
             category = player_dict[player][round][1]
             letter = player_dict[player][round][2]
+            final_score(player, round, answer, category)
             if answer_letter1 == letter:
                 if answer in category_dict[f"{category}"]:
                     roundpoints = 1
-            print(f"Round: {round + 1}\nCategory: {category}\nAnswer: {answer}\nPoints Earned: {roundpoints}\n\n")
+            print(f"Round: {round + 1}\nCategory: {category}\nLetter: {letter}\nAnswer: {answer}\nPoints Earned: {roundpoints}\n\n")
     print(f"----------Final Score----------")
     for player in range(1, player_num + 1):
         print(f"Player {player}: {scores[player - 1]}")
 
 
+def final_score(player, round, answer,category):
+    with open("finalscore.txt", "a") as f:
+        f.write(f"{player},{round},{answer},{category}\n")
 
+
+def score_finale(scorelist):
+    for round in range(0, game_settings()[0]):
+        with open("finalscore.txt", "r") as f2:
+            # print(round)
+            round_answers = []
+            for line in f2:
+                # print(line.split(",")[1], round)
+                if line.split(",")[-2] in category_dict[str(line.split(",")[-1].strip())]:
+                    if int(line.split(",")[1]) == round:
+                        round_answers.append(line.split(",")[-2].strip())
+                        # print(round_answers)
+            find_dupes(round_answers, scorelist)
+
+
+def find_dupes(round_list, scores_list):
+    dupes = defaultdict(list)
+    for index, answer in enumerate(round_list):
+        dupes[answer].append(index)
+    dupes = {k: v for k, v in dupes.items() if len(v) > 1}
+    if len(dupes) > 0:
+        # print("Same Answer Detected", dupes)
+        for value in dupes.values():
+            # print("----------newline----------")
+            for num in value:
+                # print(f"Player {num + 1} looses points!")
+                scores_list[num] -= 1
+    print(scores_list)
 
 
 get_files()
@@ -102,7 +140,9 @@ def main():
     check_files(files[0], files[1])
     player_dictionary = genrateplayerdict(files[1])
     score_list = scoreGame(player_dictionary, files[1])
-    reviewAnsers(player_dictionary, files[1], score_list)
+    compare_dict = reviewAnsers(player_dictionary, files[1], score_list)
+    score_finale(score_list)
+
 
 
 main()
