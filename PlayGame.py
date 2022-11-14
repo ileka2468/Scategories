@@ -6,7 +6,7 @@ from pytimedinput import timedInput
 import datetime
 
 '''
-This is a final project for CSC 241 at DePaul Univeersity, Professor: Tony Lowe, Group Members: William Ileka, Bakhodir Astanov, placeholder, placeholder
+This is a final project for CSC 241 at DePaul Univeersity, Professor: Tony Lowe, Group Members: William Ileka, Bakhodir Astanov, Fouzan Hussain, Syed Farhan
 Project: Scategories
 License: MIT 
 
