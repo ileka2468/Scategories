@@ -66,7 +66,7 @@ def game(username):
             duration = str(end_time - start_time)
 
             print(f"You took {duration[5:]} seconds to complete this question!")
-            saveAnswer(username, round, userText, category, letter)
+            saveAnswer(username, round, userText.capitalize(), category, letter)
         if round == settings[0] - 1:
             print(f"The game has ended, your answers have been recorded in {username}_answers.txt. Send this file to the person who will be scoring it.")
 
@@ -88,4 +88,3 @@ def main():
 
 
 main()
-
