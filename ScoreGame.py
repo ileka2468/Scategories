@@ -76,13 +76,12 @@ def scoreGame(player_dict, player_num):
 
 
 def reviewAnsers(player_dict, player_num, scores):
-    question = timedInput("Would you like to review player answers? 'y/n': ", timeout=-1, allowCharacters="y, n")
     compare_dict = {}
     with open("finalscore.txt", "w") as f:
         pass
     for player in range(1, player_num + 1):
         score = 0
-        # print(f"---------- Player: {player} ----------")
+        print(f"---------- Player: {player} ----------")
         for round in range(game_settings()[0]):
             roundpoints = 0
             answer = player_dict[player][round][3]
@@ -93,10 +92,8 @@ def reviewAnsers(player_dict, player_num, scores):
             if answer_letter1 == letter:
                 if answer in category_dict[f"{category}"]:
                     roundpoints = 1
-            print(f"Round: {round + 1}\nCategory: {category}\nLetter: {letter}\nAnswer: {answer}\nPoints Earned: {roundpoints}\n\n")
-    print(f"----------Final Score----------")
-    for player in range(1, player_num + 1):
-        print(f"Player {player}: {scores[player - 1]}")
+            print(f"Round: {round + 1}\nCategory: {category}\nLetter: {letter}\nAnswer: {answer}\nInitial Points Earned: {roundpoints}\n\n")
+
 
 
 def final_score(player, round, answer,category):
@@ -128,12 +125,15 @@ def find_dupes(round_list, scores_list):
         for value in dupes.values():
             # print("----------newline----------")
             for num in value:
-                # print(f"Player {num + 1} looses points!")
+                print(f"Player {num + 1} lost points for having the same points as another player.")
                 scores_list[num] -= 1
-    print(scores_list)
+    global final_scoresforsure
+    final_scoresforsure = scores_list
 
 
-get_files()
+
+
+
 
 def main():
     files = get_files()
@@ -142,7 +142,8 @@ def main():
     score_list = scoreGame(player_dictionary, files[1])
     compare_dict = reviewAnsers(player_dictionary, files[1], score_list)
     score_finale(score_list)
-
-
+    print(f"----------Final Score----------")
+    for player in range(1, game_settings()[1] + 1):
+        print(f"Player {player}: {final_scoresforsure[player - 1]}")
 
 main()
