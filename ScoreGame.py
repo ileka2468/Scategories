@@ -79,6 +79,8 @@ def reviewAnsers(player_dict, player_num, scores):
     compare_dict = {}
     with open("finalscore.txt", "w") as f:
         pass
+    with open("Results.txt", "w") as f:
+        pass
     for player in range(1, player_num + 1):
         score = 0
         print(f"---------- Player: {player} ----------")
@@ -92,7 +94,15 @@ def reviewAnsers(player_dict, player_num, scores):
             if answer_letter1 == letter:
                 if answer in category_dict[f"{category}"]:
                     roundpoints = 1
-            print(f"Round: {round + 1}\nCategory: {category}\nLetter: {letter}\nAnswer: {answer}\nInitial Points Earned: {roundpoints}\n\n")
+            formatting = f"Round: {round + 1}\nCategory: {category}\nLetter: {letter}\nAnswer: {answer}\nInitial Points Earned: {roundpoints}\n\n"
+            print(formatting)
+            writeResultsFile(formatting, player)
+
+def writeResultsFile(string, player):
+    with open("Results.txt", "a") as f:
+        f.write(f"---------- Player: {player} ----------\n\n")
+        f.write(string)
+
 
 
 
@@ -131,8 +141,11 @@ def find_dupes(round_list, scores_list):
     final_scoresforsure = scores_list
 
 
-
-
+def writeFinalScore():
+    with open("Results.txt", "a") as f:
+        f.write(f"----------Final Score----------\n")
+        for player in range(1, game_settings()[1] + 1):
+            f.write(f"\nPlayer {player}: {final_scoresforsure[player - 1]}")
 
 
 def main():
@@ -144,6 +157,7 @@ def main():
     score_finale(score_list)
     print(f"----------Final Score----------")
     for player in range(1, game_settings()[1] + 1):
-        print(f"Player {player}: {final_scoresforsure[player - 1]}")
+        print(f"\nPlayer {player}: {final_scoresforsure[player - 1]}")
+    writeFinalScore()
 
 main()
