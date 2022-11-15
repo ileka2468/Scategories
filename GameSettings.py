@@ -44,8 +44,15 @@ def game_settings():
 def getdata():
     welcome = text2art("Scattergories  Menu")
     print(welcome)
-    roundz, timeout1 = timedInput("How many rounds per game?: ", timeout=-1, allowCharacters="1,2,3,4,5,6,7,8,9,0")
-    playerz, timeout2 = timedInput("How many people will be playing: ", timeout=-1, allowCharacters="1,2,3,4,5,6,7,8,9,0")
+    while True:
+        roundz, timeout1 = timedInput("How many rounds per game?: ", timeout=-1, allowCharacters="1,2,3,4,5,6,7,8,9,0")
+        playerz, timeout2 = timedInput("How many people will be playing: ", timeout=-1, allowCharacters="1,2,3,4,5,6,7,8,9,0")
+        if int(roundz) > 0 and int(playerz) > 0:
+            break
+        else:
+            print("****Your round number and player must be greater than 0****\n\n")
+    print("\nYour game settings have been save you can now play the game by running PlayGame.py!")
+
     with open("roundinfo.txt","w") as f:
         f.write(f"{roundz},{playerz}")
 
