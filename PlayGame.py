@@ -6,7 +6,7 @@ from pytimedinput import timedInput
 import datetime
 
 '''
-This is a final project for CSC 241 at DePaul Univeersity, Professor: Tony Lowe, Group Members: William Ileka, Bakhodir Astanov, placeholder, placeholder
+This is a final project for CSC 241 at DePaul Univeersity, Professor: Tony Lowe, Group Members: William Ileka, Bakhodir Astanov, Fouzan Hussain, Syed Farhan
 Project: Scategories
 License: MIT 
 
@@ -20,17 +20,19 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 
 '''
-
+# loads in data by calling the functions from module GameSettings file
 categories = create_categories()
 start_letters = generate_start_letters()
 settings = game_settings()
 
+# function that generates the allowed player numbers, for validation purposes when the game starts
 def allowed_usernames(player_num):
     string = ""
     for num in range(1, player_num + 1):
         string += f"{num},"
     new = string.rstrip(string[-1])
     return new
+
 
 def game_start():
     welcome_message = text2art("Welcome to Scattergories!")
