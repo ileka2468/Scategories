@@ -77,7 +77,7 @@ def scoreGame(player_dict, player_num):
 
 def reviewAnsers(player_dict, player_num, scores):
     compare_dict = {}
-    with open("finalscore.txt", "w") as f:
+    with open("scoringinfo.txt", "w") as f:
         pass
     with open("Results.txt", "w") as f:
         pass
@@ -107,13 +107,13 @@ def writeResultsFile(string, player):
 
 
 def final_score(player, round, answer,category):
-    with open("finalscore.txt", "a") as f:
+    with open("scoringinfo.txt", "a") as f:
         f.write(f"{player},{round},{answer},{category}\n")
 
 
 def score_finale(scorelist):
     for round in range(0, game_settings()[0]):
-        with open("finalscore.txt", "r") as f2:
+        with open("scoringinfo.txt", "r") as f2:
             # print(round)
             round_answers = []
             for line in f2:
