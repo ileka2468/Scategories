@@ -29,7 +29,12 @@ categories = {}
 start_letters = {}
 
 csv_folder = Path("CSV_folder")
-category_csvs = [csv_folder / "fruits.csv", csv_folder / "presidents.csv", csv_folder / "countries.csv", csv_folder / "generic-food.csv"]
+category_csvs = [csv_folder / "Fruits.csv", csv_folder / "Presidents.csv", csv_folder / "Countries.csv",
+                 csv_folder / "Food.csv", csv_folder / "3 letter words.csv",
+                 csv_folder / "Active NBA Players.csv", csv_folder / "Active NFL Players.csv",
+                 csv_folder / "Languages.csv", csv_folder / "Celebrities.csv", csv_folder / "Zoo Animals.csv",
+                 csv_folder / "NBA Teams.csv", csv_folder / "Netflix Titles.csv", csv_folder / "US Cities.csv",
+                 csv_folder / "Vegetables.csv", csv_folder / "Video Games.csv"]
 
 # function that writes game info into a file, to be used later
 def game_settings():
@@ -64,10 +69,10 @@ name prior to the period and the value is a list of the data being read in from 
 
 def create_categories():
     for csv in category_csvs:
-        with open(csv, "r") as f:
+        with open(csv, "r", errors="ignore") as f:
             period = str(csv).find(".")
             slash = str(csv).find("\\") + 1
-            csv = str(csv)[slash:period].capitalize()
+            csv = str(csv)[slash:period]
             categories[str(csv)] = []
             next(f)
             for line in f:
